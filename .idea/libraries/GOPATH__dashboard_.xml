@@ -1,0 +1,33 @@
+<component name="libraryTable">
+  <library name="GOPATH &lt;dashboard&gt;">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../appMng" />
+      <root url="file://$PROJECT_DIR$/../gopkg.in" />
+      <root url="file://$PROJECT_DIR$/../quickstart" />
+      <root url="file://$PROJECT_DIR$/../github.com" />
+      <root url="file://$PROJECT_DIR$/../golang.org" />
+      <root url="file://$PROJECT_DIR$/../dashboard_bak20170427" />
+      <root url="file://$PROJECT_DIR$/../k8s_user" />
+      <root url="file://$PROJECT_DIR$/../k8s.io" />
+      <root url="file://$PROJECT_DIR$/../k8sTest" />
+      <root url="file://$PROJECT_DIR$/../apiserver" />
+      <root url="file://$PROJECT_DIR$/../dashboard_bak20170420" />
+    </CLASSES>
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../appMng" />
+      <root url="file://$PROJECT_DIR$/../gopkg.in" />
+      <root url="file://$PROJECT_DIR$/../quickstart" />
+      <root url="file://$PROJECT_DIR$/../github.com" />
+      <root url="file://$PROJECT_DIR$/../golang.org" />
+      <root url="file://$PROJECT_DIR$/../dashboard_bak20170427" />
+      <root url="file://$PROJECT_DIR$/../k8s_user" />
+      <root url="file://$PROJECT_DIR$/../k8s.io" />
+      <root url="file://$PROJECT_DIR$/../k8sTest" />
+      <root url="file://$PROJECT_DIR$/../apiserver" />
+      <root url="file://$PROJECT_DIR$/../dashboard_bak20170420" />
+    </SOURCES>
+    <excluded>
+      <root url="file://$PROJECT_DIR$" />
+    </excluded>
+  </library>
+</component>

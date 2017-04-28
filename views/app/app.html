@@ -1,0 +1,357 @@
+{{template "starter.html"}}
+
+{{ define "content" }}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="row card-box">
+        {{template "../app/content.html"}}
+        <!-- /.content-wrapper -->
+        <!---->
+        {{template "../app/addapp.html"}}
+        <!---->
+        {{template "../app/imageSelect.html"}}
+        <!---->
+        {{template "../app/scaleapp.html"}}
+        <!---->
+        {{template "../app/rollapp.html"}}
+        <!---->
+        {{template "../app/expensiveapp.html"}}
+        <!---->
+    </div>
+{{ end }}
+
+
+{{ define "script" }}
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+            $.ajax({
+                type: 'GET',
+                url: "http://10.5.9.47:9090/api/v1/apps",
+                dataType: 'JSON',
+                success: function(data, status) {
+                    $('#table').bootstrapTable({
+                        striped: true, //是否显示行间隔色
+                        cache: false, //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                        pagination: true, //是否显示分页（*）
+                        sortable: true, //是否启用排序
+                        sortOrder: "ID asc", //排序方式
+                        pageNumber: 1, //初始化加载第一页，默认第一页
+                        pageSize: 7, //每页的记录行数（*）
+                        pageList: [20, 50, 100, 150], //可供选择的每页的行数（*）
+                        striped: true,
+                        strictSearch: true,
+                        clickToSelect: true,
+                        singleSelect: true,
+                        columns: [ {
+                            field: "选择",
+                            checkbox:  true,
+                            title: "选择",
+                            class: "tablebody",
+                            align: "center",
+                            valign: "middle"
+                        }, {
+                            field: 'name',
+                            title: '应用名称',
+                            align: "center",
+                            valign: "middle",
+                            sortable: true
+                        }, {
+                            field: 'status',
+                            title: '状态',
+                            align: "center",
+                            valign: "middle",
+                            sortable: true,
+                            formatter: function(value, row, index) {
+                                if (value == 0) {
+                                    return '创建中';
+                                }
+                                if (value == 1) {
+                                    return '成功';
+                                }
+                                if (value == 2) {
+                                    return '失败';
+                                }
+                                if (value == 3) {
+                                    return '运行中';
+                                }
+                                if (value == 4) {
+                                    return '停止';
+                                }
+                                return "未知错误";
+                            }
+                        }, {
+                            field: 'instanceCount',
+                            title: '容器数量',
+                            align: "center",
+                            valign: "middle",
+                            sortable: true
+                        }, {
+                            field: 'url',
+                            title: '访问地址',
+                            align: "center",
+                            valign: "middle",
+                            sortable: true,
+                            formatter: function(value, row, index) {
+                                var a = '<a href="' + value + '" >' + value + '</a>';
+                                return a;
+                            }
+                        }, {
+                            field: 'create_at',
+                            title: '创建时间',
+                            align: "center",
+                            valign: "middle",
+                            sortable: true
+                        }],
+                        data: data.msg
+                    });
+                },
+                error: function(XHR, status, errorThrown) {
+                    console.log(XHR);
+                    console.log(status);
+                    console.log(errorThrown);
+                }
+            });
+            $("#createapp").click(function() {
+                $('#imageSelect').modal('show');
+            });
+
+            $("#create-step").click(function() {
+                $('#imageSelect').modal('hide')
+                $('#addapp').modal('show');
+            });
+
+            $("#scaleapp").click(function() {
+                $('#scaleApp').modal('show');
+            });
+            $("#rollupdateapp").click(function() {
+                $('#rollupdateApp').modal('show');
+            });
+            $("#expensiveapp").click(function() {
+                $('#expensiveApp').modal('show');
+            });
+            $("#createApp").click(createApp);
+
+            $("#stopapp").click(stopApp);
+            $("#startapp").click(startApp);
+            $("#deleteapp").click(deleteApp);
+
+            $('#scale').click(scaleApp);
+            $('#rollupdate').click(rollupdateApp);
+            $('#expensive').click(expensiveApp);
+
+            function createApp() {
+                appName = $('#appname').val()
+                image = $('#image').val() + ":" + $('#version').val()
+                cpu = $('#cpu').val()
+                memory = $('#memory').val()
+                instanceCnt = $('#instanceCnt').val()
+                remark = $('#remark').val()
+                console.log(JSON.stringify({
+                    "name": appName,
+                    "region": "IPGO",
+                    "memory": memory,
+                    "cpu": cpu,
+                    "instanceCount": Number(instanceCnt),
+                    "image": image,
+                    "userName": "oliver",
+                    "remark": "this is a test web application"
+                }))
+                $.ajax({
+                    type: 'POST',
+                    url: "http://10.5.9.47:9090/api/v1/apps",
+                    dataType: 'JSON',
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        "name": appName,
+                        "region": "IPGO",
+                        "memory": memory,
+                        "cpu": cpu,
+                        "instanceCount": Number(instanceCnt),
+                        "image": image,
+                        "userName": "oliver",
+                        "remark": "this is a test web application"
+                    }),
+                    success: function(data, status) {
+                        console.log(data);
+                        $('#addapp').modal('hide');
+
+                    },
+                    error: function(XHR, status, errorThrown) {
+                        console.log(XHR);
+                        console.log(status);
+                        console.log(errorThrown);
+                    }
+                });
+
+            }
+
+            function stopApp(){
+                row=$('#table').bootstrapTable('getSelections');
+                $.ajax({
+                    type: 'PATCH',
+                    url: "http://10.5.9.47:9090/api/v1/apps",
+                    dataType: 'JSON',
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        "name": row[0].name,
+                        "userName": "huangjia"
+                    }),
+                    success: function(data, status) {
+                        if (data.status == "200") {
+                            alert(data.msg)
+                        } else {
+                            alert(data.err)
+                        }
+                    },
+                    error: function(XHR, status, errorThrown) {
+                        console.log(XHR);
+                        console.log(status);
+                        console.log(errorThrown);
+                    }
+                });
+            }
+
+            function startApp(){
+                row=$('#table').bootstrapTable('getSelections');
+                $.ajax({
+                    type: 'PUT',
+                    url: "http://10.5.9.47:9090/api/v1/apps",
+                    dataType: 'JSON',
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        "name": row[0].name,
+                        "userName": "huangjia"
+                    }),
+                    success: function(data, status) {
+                        if (data.status == "200") {
+                            alert(data.msg)
+                        } else {
+                            alert(data.err)
+                        }
+                    },
+                    error: function(XHR, status, errorThrown) {
+                        console.log(XHR);
+                        console.log(status);
+                        console.log(errorThrown);
+                    }
+                });
+            }
+
+            function deleteApp(){
+                row=$('#table').bootstrapTable('getSelections');
+                $.ajax({
+                    type: 'DELETE',
+                    url: "http://10.5.9.47:9090/api/v1/apps",
+                    dataType: 'JSON',
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        "name": row[0].name,
+                        "userName": "huangjia"
+                    }),
+                    success: function(data, status) {
+                        if (data.status == "200") {
+                            alert(data.msg)
+                        }
+                    },
+                    error: function(XHR, status, errorThrown) {
+                        console.log(XHR);
+                        console.log(status);
+                        console.log(errorThrown);
+                    }
+                });
+            }
+
+            function scaleApp() {
+                $('#scaleApp').modal('hide');
+                cnt = $('#instanceCount').val()
+                console.log(cnt)
+                row = $('#table').bootstrapTable('getSelections');
+                $.ajax({
+                    type: 'PATCH',
+                    url: "http://10.5.9.47:9090/api/v1/apps/scale",
+                    dataType: 'JSON',
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        "name": row[0].name,
+                        "instanceCount": Number(cnt),
+                        "userName": "Oliver"
+                    }),
+                    success: function(data, status) {
+                        if (data.status == "201") {
+                            alert(data.msg);
+                        }
+                    },
+                    error: function(XHR, status, errorThrown) {
+                        console.log(XHR);
+                        console.log(status);
+                        console.log(errorThrown);
+                    }
+                });
+            }
+
+            function rollupdateApp() {
+                $('#rollupdateApp').modal('hide');
+                image = $('#img').val()
+                version = $('#ver').val()
+                row = $('#table').bootstrapTable('getSelections');
+                $.ajax({
+                    type: 'POST',
+                    url: "http://10.5.9.47:9090/api/v1/apps/rollupdate",
+                    dataType: 'JSON',
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        "name": row[0].name,
+                        "image": image + ":" + version,
+                        "userName": "huangjia"
+                    }),
+                    success: function(data, status) {
+                        if (data.status == "201") {
+                            alert(data.msg);
+                        }
+                    },
+                    error: function(XHR, status, errorThrown) {
+                        console.log(XHR);
+                        console.log(status);
+                        console.log(errorThrown);
+                    }
+                });
+            }
+
+            function expensiveApp() {
+                $('#expensiveApp').modal('hide');
+                cpu = $('#cp').val()
+                memory = $('#mem').val()
+                row = $('#table').bootstrapTable('getSelections');
+                $.ajax({
+                    type: 'PUT',
+                    url: "http://10.5.9.47:9090/api/v1/apps/expansion",
+                    dataType: 'JSON',
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        "name": row[0].name,
+                        "cpu": cpu,
+                        "memory": memory,
+                        "userName": "huangjia"
+                    }),
+                    success: function(data, status) {
+                        if (data.status == "201") {
+                            alert(data.msg);
+                        }
+                    },
+                    error: function(XHR, status, errorThrown) {
+                        console.log(XHR);
+                        console.log(status);
+                        console.log(errorThrown);
+                    }
+                });
+            }
+
+
+        })
+
+    </script>
+
+{{ end }}
+
+

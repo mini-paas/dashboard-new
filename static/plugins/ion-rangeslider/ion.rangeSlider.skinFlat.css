@@ -1,0 +1,183 @@
+/* Ion.RangeSlider, Flat UI Skin
+// css version 2.0.3
+// © Denis Ineshin, 2014    https://github.com/IonDen
+// ===================================================================================================================*/
+
+/* =====================================================================================================================
+// Skin details */
+
+.irs-line-mid,
+.irs-line-left,
+.irs-line-right,
+.irs-bar,
+.irs-bar-edge,
+.irs-slider {
+    background: url("sprite-skin-flat-green.png") repeat-x;
+}
+
+/*CUSTOM GREEN BAR*/
+.irs-green .irs-line-mid,
+.irs-green .irs-line-left,
+.irs-green .irs-line-right,
+.irs-green .irs-bar,
+.irs-green .irs-bar-edge,
+.irs-green .irs-slider {
+    background: url("sprite-skin-flat-green.png") repeat-x;
+}
+.irs-green .irs-from, .irs-green .irs-to, .irs-green .irs-single {
+    background: #33a333;
+}
+
+.irs-green  .irs-from:after, .irs-green .irs-to:after, .irs-green .irs-single:after {
+    border-top-color: #33a333;
+}
+/*CUSTOM GREEN BAR*/
+
+
+
+/*CUSTOM BLUE BAR*/
+.irs-blue .irs-line-mid,
+.irs-blue .irs-line-left,
+.irs-blue .irs-line-right,
+.irs-blue .irs-bar,
+.irs-blue .irs-bar-edge,
+.irs-blue .irs-slider {
+    background: url("sprite-skin-flat-blue.png") repeat-x;
+}
+.irs-blue .irs-from, .irs-blue .irs-to, .irs-blue .irs-single {
+    background: #5a83fb;
+}
+
+.irs-blue .irs-from:after, .irs-blue .irs-to:after, .irs-blue .irs-single:after {
+    border-top-color: #5a83fb;
+}
+/*CUSTOM BLUE BAR*/
+
+
+/*CUSTOM BLUE BAR*/
+.irs-yellow .irs-line-mid,
+.irs-yellow .irs-line-left,
+.irs-yellow .irs-line-right,
+.irs-yellow .irs-bar,
+.irs-yellow .irs-bar-edge,
+.irs-yellow .irs-slider {
+    background: url("sprite-skin-flat-yellow.png") repeat-x;
+}
+.irs-yellow .irs-from, .irs-yellow .irs-to, .irs-yellow .irs-single {
+    background: #899100;
+}
+
+.irs-yellow .irs-from:after, .irs-yellow .irs-to:after, .irs-yellow .irs-single:after {
+    border-top-color: #899100;
+}
+/*CUSTOM BLUE BAR*/
+
+
+
+.irs {
+    height: 40px;
+}
+.irs-with-grid {
+    height: 60px;
+}
+.irs-line {
+    height: 12px; top: 25px;
+}
+    .irs-line-left,
+    .irs-green .irs-line-left,
+    .irs-blue .irs-line-left,
+    .irs-yellow .irs-line-left {
+        height: 12px;
+        background-position: 0 -30px;
+    }
+    .irs-line-mid,
+    .irs-green .irs-line-mid,
+    .irs-blue .irs-line-mid,
+    .irs-yellow .irs-line-mid{
+        height: 12px;
+        background-position: 0 0;
+    }
+    .irs-line-right,
+    .irs-green .irs-line-right,
+    .irs-blue .irs-line-right,
+    .irs-yellow .irs-line-right{
+        height: 12px;
+        background-position: 100% -30px;
+    }
+
+.irs-bar,
+.irs-green .irs-bar,
+.irs-blue .irs-bar,
+.irs-yellow .irs-bar{
+    height: 12px; top: 25px;
+    background-position: 0 -60px;
+}
+    .irs-bar-edge,
+    .irs-green .irs-bar-edge,
+    .irs-blue .irs-bar-edge,
+    .irs-yellow .irs-bar-edge {
+        top: 25px;
+        height: 12px; width: 9px;
+        background-position: 0 -90px;
+    }
+
+.irs-shadow {
+    height: 3px; top: 34px;
+    background: #000;
+    opacity: 0.25;
+}
+.lt-ie9 .irs-shadow {
+    filter: alpha(opacity=25);
+}
+
+.irs-slider,
+.irs-green .irs-slider,
+.irs-blue .irs-slider,
+.irs-yellow .irs-slider{
+    width: 16px; height: 18px;
+    top: 22px;
+    background-position: 0 -120px;
+}
+.irs-slider.state_hover, .irs-slider:hover {
+    background-position: 0 -150px;
+}
+
+.irs-min, .irs-max {
+    color: #999;
+    font-size: 10px; line-height: 1.333;
+    text-shadow: none;
+    top: 0; padding: 1px 3px;
+    background: #e1e4e9;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.irs-from, .irs-to, .irs-single {
+    color: #fff;
+    font-size: 10px; line-height: 1.333;
+    text-shadow: none;
+    padding: 1px 5px;
+    background: #fb6d9d;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+.irs-from:after, .irs-to:after, .irs-single:after {
+    position: absolute; display: block; content: "";
+    bottom: -6px; left: 50%;
+    width: 0; height: 0;
+    margin-left: -3px;
+    overflow: hidden;
+    border: 3px solid transparent;
+    border-top-color: #fb6d9d;
+}
+
+
+.irs-grid-pol {
+    background: #e1e4e9;
+}
+.irs-grid-text {
+    color: #999;
+}
+
+.irs-disabled {
+}
