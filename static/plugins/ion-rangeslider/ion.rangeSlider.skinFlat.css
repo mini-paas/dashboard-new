@@ -64,11 +64,11 @@
     background: url("sprite-skin-flat-yellow.png") repeat-x;
 }
 .irs-yellow .irs-from, .irs-yellow .irs-to, .irs-yellow .irs-single {
-    background: #899100;
+    background: #ffc90e;
 }
 
 .irs-yellow .irs-from:after, .irs-yellow .irs-to:after, .irs-yellow .irs-single:after {
-    border-top-color: #899100;
+    border-top-color: #ffc90e;
 }
 /*CUSTOM BLUE BAR*/
 

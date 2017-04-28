@@ -43,7 +43,6 @@
                 </div>
             </div>
             <!-- Top Bar End -->
-
             <!-- LEFT SIDE MENU -->
             {{template "sidebar.html"}}
             <!-- LEFT SIDE MENU END-->
@@ -53,13 +52,9 @@
                 <div class="container" style="margin-top: 50px">
                     {{ block "content" . }}{{ end }}
                 </div>
-
-
             </div>
-
         </div>
         {{template "footer.html"}}
-
 
         <!-- END wrapper -->
         <script>
@@ -106,6 +101,9 @@
         <script language="JavaScript" src="/static/js/app.js"></script>
         <script language="JavaScript" src="/static/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 
+        <script type="text/javascript" src="../static/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="../static/plugins/datatables/dataTables.bootstrap.min.js"></script>
+
 
 
         <!-- Optionally, you can add Slimscroll and FastClick plugins.
@@ -116,6 +114,8 @@
         <!-- Latest compiled and minified Locales -->
         <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script>
 
+        <!-- customize functions-->
+        <script language="JavaScript" src="/static/js/custom.js"></script>
 
 
         <script language="JavaScript" src="/static/js/waves.js"></script>
