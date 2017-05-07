@@ -42,7 +42,7 @@
 {{ end }}
 
 {{ define "js" }}
-    <script src="../static/js/modernizr.min.js"></script>
+    <!--<script src="../static/js/modernizr.min.js"></script>-->
     <script src="../static/plugins/ion-rangeslider/ion.rangeSlider.min.js"></script>
     <script src="../static/plugins/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js"></script>
     <script src="../static/pages/jquery.ui-sliders.js"></script>
@@ -53,6 +53,13 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="row col-sm-12" style="height: 100%">
         <div class="column card-box col-md-2" style="height: 100%" id="sideBar2">
+            <div style="border-bottom: 1px solid #d7dce5;padding: 20px 0;height: 71px;margin-bottom: -12px">
+                <form role="search" class="navbar-left pull-left hidden-xs" style="color: #797979 !important;position: relative;margin: 0px 0px 15px 10px;">
+                    <input type="text" placeholder="Search..." class="form-control" style="padding-right: 27px;border-radius: 27px;height: 30px">
+                    <span style="float: right; position: absolute;top: 5px;right: 9px;color: #c4c4cd;"><i class="fa fa-search"></i></span>
+                </form>
+            </div>
+
             <p class="text-muted font-13 m-b-15 m-t-20"><strong>来源</strong></p>
             <div>
                 <div class="radio radio-success">
@@ -72,10 +79,34 @@
         <div class="column col-md-10">
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="tab-content" style="padding-top: 72px">
+
+                    <div class="tab-content" style="padding-top: 40px">
+                        <div class="row" style="margin-left: -25px">
+                            <div class="col-md-10"></div>
+                            <div class="form-group">
+
+                                <div class="col-md-2">
+                                    <table style="margin-bottom: 12px">
+                                        <tr>
+                                            <td>
+                                                <label for="ordering" class="control-label">排序</label>
+                                            </td>
+                                            <td>
+                                                <select id="ordering" onchange="getAPIdaocloud()" class="form-control" style="margin-left: 10px">
+                                                    <option value="-updated_at">更新时间</option>
+                                                    <option value="-download_count">下载量</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                         <div class="tab-pane active" id="tab0">
+                            <div class="col-md-12">
 
-
+                            </div>
+                            <div class="cloudbox"></div>
                         </div>
                         <div class="tab-pane" id="tab1">
                             <p>Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
@@ -89,9 +120,6 @@
                 </div>
             </div>
         </div>
-
-
-
     </div>
 <!-- Modal -->
     <div id="custom-modal" class="modal-demo">
@@ -105,14 +133,14 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="appname">应用名称:</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="appname" palceholder="请输入应用名称" check-type="required" required-message="请输入应用名称" />
+                            <input type="text" class="form-control" id="appname" name="appname" palceholder="请输入应用名称" check-type="required" required-message="请输入应用名称" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="image">镜像地址:</label>
                         <div class="col-sm-6">
                             <!--<input type="text" class="form-control" id="image" palceholder="" check-type="required" required-message="请填写镜像地址" />-->
-                            <select class="form-control" id="image" palceholder="" check-type="required" required-message="请填写镜像地址">
+                            <select class="form-control" id="image" name="image" palceholder="" check-type="required" required-message="请填写镜像地址">
                                 <option></option>
                                 <option>image1</option>
                                 <option>image2</option>
@@ -123,7 +151,7 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="version">镜像版本:</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="version" palceholder="" check-type="required" required-message="请填写镜像版本" />
+                            <input type="text" class="form-control" id="version" name="version" palceholder="" check-type="required" required-message="请填写镜像版本" />
                         </div>
                     </div>
                     <!--<div class="form-group">-->
@@ -136,7 +164,7 @@
                     <div class="form-group">
                         <label for="cpu" class="col-sm-3 control-label"><b>cpu: </b></label>
                         <div class="col-sm-6 irs-blue">
-                            <input type="text" id="cpu">
+                            <input type="text" id="cpu" name="cpu">
                         </div>
                     </div>
                     <!--<div class="form-group">-->
@@ -148,7 +176,7 @@
                     <div class="form-group">
                         <label for="memory" class="col-sm-3 control-label"><b>内存:</b></label>
                         <div class="col-sm-6 irs-green">
-                            <input type="text" id="memory">
+                            <input type="text" id="memory" name="memory">
                         </div>
                     </div>
                     <!--<div class="form-group">-->
@@ -160,21 +188,21 @@
                     <div class="form-group">
                         <label for="instanceCnt" class="col-sm-3 control-label"><b>容器个数: </b></label>
                         <div class="col-sm-6 irs-yellow">
-                            <input type="text" id="instanceCnt">
+                            <input type="text" id="instanceCnt" name="instanceCnt">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="remark">备注:</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="remark" palceholder="" />
+                            <input type="text" class="form-control" id="remark" name="remark" palceholder="" />
                         </div>
                     </div>
                 </div>
             </form>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default waves-effect" data-dismiss="modal" onclick="Custombox.close();">Close</button>
-                <button type="button" class="btn btn-primary waves-effect waves-light" onclick="Custombox.close();">Save</button>
+                <button type="button" class="btn btn-primary waves-effect waves-light" onclick="createApp()">Save</button>
             </div>
         </div>
     </div>
@@ -184,456 +212,146 @@
 {{ define "script" }}
     <script type="text/javascript">
         $(document).ready(function () {
-            var daocloud = {
-                "page": 1,
-                "page_size": 9,
-                "results": [
-                    {
-                        "access": 2,
-                        "blockchain_verified": false,
-                        "brief": "Go \u662f Google \u5f00\u53d1\u7684\u4e00\u79cd\u7f16\u8bd1\u578b\uff0c\u53ef\u5e73\u884c\u5316\uff0c\u5e76\u5177\u6709\u5783\u573e\u56de\u6536\u529f\u80fd\u7684\u7f16\u7a0b\u8bed\u8a00\u3002\u672c\u955c\u50cf\u4ece Docker Hub \u540c\u6b65\u5e76\u7531 DaoCloud \u63d0\u4f9b\u4e2d\u6587\u6587\u6863\u652f\u6301\uff0c\u7528\u6765\u5e2e\u52a9\u56fd\u5185\u5f00\u53d1\u8005\u66f4\u65b9\u4fbf\u7684\u4f7f\u7528 Docker \u955c\u50cf\u3002",
-                        "categories": [
-                            {
-                                "id": "programming-language",
-                                "name": "\u7f16\u7a0b\u8bed\u8a00"
-                            }
-                        ],
-                        "created_at": null,
-                        "download_count": 1540,
-                        "icon_url": "https://dn-daoweb-resource.qbox.me/image-icon/golang.svg",
-                        "id": "514a7477-98ca-4262-83d4-1baaf4fe8ce4",
-                        "image_url": "daocloud.io/library/golang",
-                        "latest_tag": {
-                            "blockchain_verified": false,
-                            "created_at": "2015-12-15T23:17:22+08:00",
-                            "daohub_build_id": null,
-                            "from_tag": null,
-                            "image_digest": "sha256:cc623d2719b1267c6cc7677b0bc7cc63d9c8f62d9c1a8e878c834e7cfdf46360",
-                            "image_url": "daocloud.io/library/golang:1.2.2",
-                            "is_pinned": false,
-                            "name": "1.2.2",
-                            "release_date": "2017-04-26T12:31:11+08:00",
-                            "repo_id": "514a7477-98ca-4262-83d4-1baaf4fe8ce4",
-                            "scan_status": null,
-                            "scanned_at": null,
-                            "size": 0,
-                            "updated_at": "2017-04-26T12:31:25+08:00"
-                        },
-                        "publisher": {
-                            "full_name": "Docker Official",
-                            "id": "0a9af180-1b20-44a2-a51f-908a4312e028",
-                            "name": "library"
-                        },
-                        "repo_title": "Golang",
-                        "security_verified": false,
-                        "star_count": 17,
-                        "updated_at": "2017-04-26T12:31:25+08:00"
-                    },
-                    {
-                        "access": 2,
-                        "blockchain_verified": false,
-                        "brief": "Python \u662f\u4e00\u79cd\u89e3\u91ca\u578b\u3001\u4ea4\u4e92\u6027\u3001\u9762\u5411\u5bf9\u8c61\u7684\u5f00\u6e90\u7f16\u7a0b\u8bed\u8a00\u3002\u672c\u955c\u50cf\u4ece Docker Hub \u540c\u6b65\u5e76\u7531 DaoCloud \u63d0\u4f9b\u4e2d\u6587\u6587\u6863\u652f\u6301\uff0c\u7528\u6765\u5e2e\u52a9\u56fd\u5185\u5f00\u53d1\u8005\u66f4\u65b9\u4fbf\u7684\u4f7f\u7528 Docker \u955c\u50cf\u3002",
-                        "categories": [
-                            {
-                                "id": "programming-language",
-                                "name": "\u7f16\u7a0b\u8bed\u8a00"
-                            }
-                        ],
-                        "created_at": null,
-                        "download_count": 1063,
-                        "icon_url": "https://dn-daoweb-resource.qbox.me/image-icon/python.svg",
-                        "id": "69057358-b212-44df-83b0-82ef65f341a0",
-                        "image_url": "daocloud.io/library/python",
-                        "latest_tag": {
-                            "blockchain_verified": false,
-                            "created_at": "2015-12-15T23:17:33+08:00",
-                            "daohub_build_id": null,
-                            "from_tag": null,
-                            "image_digest": "sha256:552a2bd4c8b5ae531a54a0456f24e5b60c01e81898fa2aa62fe9a5b4da987f67",
-                            "image_url": "daocloud.io/library/python:3.4.1-onbuild",
-                            "is_pinned": false,
-                            "name": "3.4.1-onbuild",
-                            "release_date": "2017-04-26T05:43:32+08:00",
-                            "repo_id": "69057358-b212-44df-83b0-82ef65f341a0",
-                            "scan_status": null,
-                            "scanned_at": null,
-                            "size": 0,
-                            "updated_at": "2017-04-26T05:43:33+08:00"
-                        },
-                        "publisher": {
-                            "full_name": "Docker Official",
-                            "id": "0a9af180-1b20-44a2-a51f-908a4312e028",
-                            "name": "library"
-                        },
-                        "repo_title": "Python",
-                        "security_verified": false,
-                        "star_count": 41,
-                        "updated_at": "2017-04-26T05:43:33+08:00"
-                    },
-                    {
-                        "access": 2,
-                        "blockchain_verified": false,
-                        "brief": "Ruby on Rails \u6216 Rails\uff0c\u662f\u4e00\u4e2a\u7528 Ruby \u8fd0\u884c\u7684\u5f00\u6e90\u4e92\u8054\u7f51\u5e94\u7528\u6846\u67b6\u3002\u672c\u955c\u50cf\u4ece Docker Hub \u540c\u6b65\u5e76\u7531 DaoCloud \u63d0\u4f9b\u4e2d\u6587\u6587\u6863\u652f\u6301\uff0c\u7528\u6765\u5e2e\u52a9\u56fd\u5185\u5f00\u53d1\u8005\u66f4\u65b9\u4fbf\u7684\u4f7f\u7528 Docker \u955c\u50cf\u3002",
-                        "categories": [
-                            {
-                                "id": "web-framework",
-                                "name": "Web\u6846\u67b6"
-                            }
-                        ],
-                        "created_at": null,
-                        "download_count": 37,
-                        "icon_url": "https://dn-daoweb-resource.qbox.me/image-icon/rails.svg",
-                        "id": "7666bf0e-a13d-400f-8e0f-a81696a68770",
-                        "image_url": "daocloud.io/library/rails",
-                        "latest_tag": {
-                            "blockchain_verified": false,
-                            "created_at": "2015-12-15T23:17:43+08:00",
-                            "daohub_build_id": null,
-                            "from_tag": null,
-                            "image_digest": "sha256:43b1ebecc9756b381bd43658fdd3b64f2632aa96c8d0375719b86f711bc70abf",
-                            "image_url": "daocloud.io/library/rails:4.2.0",
-                            "is_pinned": false,
-                            "name": "4.2.0",
-                            "release_date": "2017-04-26T04:57:50+08:00",
-                            "repo_id": "7666bf0e-a13d-400f-8e0f-a81696a68770",
-                            "scan_status": null,
-                            "scanned_at": null,
-                            "size": 0,
-                            "updated_at": "2017-04-26T04:58:03+08:00"
-                        },
-                        "publisher": {
-                            "full_name": "Docker Official",
-                            "id": "0a9af180-1b20-44a2-a51f-908a4312e028",
-                            "name": "library"
-                        },
-                        "repo_title": "Rails",
-                        "security_verified": false,
-                        "star_count": 4,
-                        "updated_at": "2017-04-26T04:58:03+08:00"
-                    },
-                    {
-                        "access": 2,
-                        "blockchain_verified": false,
-                        "brief": "Fedora \u662f\u4e00\u4e2a\u77e5\u540d\u7684 Linux \u53d1\u884c\u7248\uff0c\u662f\u4e00\u6b3e\u7531\u5168\u7403\u793e\u533a\u7231\u597d\u8005\u6784\u5efa\u7684\u9762\u5411\u65e5\u5e38\u5e94\u7528\u7684\u5feb\u901f\u3001\u7a33\u5b9a\u3001\u5f3a\u5927\u7684\u64cd\u4f5c\u7cfb\u7edf\u3002\u672c\u955c\u50cf\u4ece Docker Hub \u540c\u6b65\u5e76\u7531 DaoCloud \u63d0\u4f9b\u4e2d\u6587\u6587\u6863\u652f\u6301\uff0c\u7528\u6765\u5e2e\u52a9\u56fd\u5185\u5f00\u53d1\u8005\u66f4\u65b9\u4fbf\u7684\u4f7f\u7528 Docker \u955c\u50cf\u3002",
-                        "categories": [
-                            {
-                                "id": "os",
-                                "name": "\u64cd\u4f5c\u7cfb\u7edf"
-                            }
-                        ],
-                        "created_at": null,
-                        "download_count": 283,
-                        "icon_url": "https://dn-daoweb-resource.qbox.me/image-icon/fedora.svg",
-                        "id": "4af77369-15c6-4f88-92fd-5805d28ba5ca",
-                        "image_url": "daocloud.io/library/fedora",
-                        "latest_tag": {
-                            "blockchain_verified": false,
-                            "created_at": "2015-12-15T23:17:14+08:00",
-                            "daohub_build_id": null,
-                            "from_tag": null,
-                            "image_digest": "sha256:fba372d3e27f11ae600bf1bcfaf032810c7621303973680898bb5dc2716b47cf",
-                            "image_url": "daocloud.io/library/fedora:latest",
-                            "is_pinned": false,
-                            "name": "latest",
-                            "release_date": "2017-04-26T04:56:01+08:00",
-                            "repo_id": "4af77369-15c6-4f88-92fd-5805d28ba5ca",
-                            "scan_status": null,
-                            "scanned_at": null,
-                            "size": 0,
-                            "updated_at": "2017-04-26T04:56:01+08:00"
-                        },
-                        "publisher": {
-                            "full_name": "Docker Official",
-                            "id": "0a9af180-1b20-44a2-a51f-908a4312e028",
-                            "name": "library"
-                        },
-                        "repo_title": "Fedora",
-                        "security_verified": false,
-                        "star_count": 5,
-                        "updated_at": "2017-04-26T04:56:01+08:00"
-                    },
-                    {
-                        "access": 2,
-                        "blockchain_verified": false,
-                        "brief": "Ubuntu\u662f\u4e00\u4e2a\u81ea\u7531\u3001\u5f00\u6e90\u3001\u57fa\u4e8eDebian\u7684Linux\u53d1\u884c\u7248\uff0c\u53d1\u884c\u5468\u671f\u4e3a6\u4e2a\u6708\uff0c\u7531 Canonical \u516c\u53f8\u548c\u81ea\u7531\u8f6f\u4ef6\u793e\u533a\u5f00\u53d1\u3002 \u672c\u955c\u50cf\u4eceDocker Hub \u540c\u6b65\u5e76\u7531 DaoCloud \u63d0\u4f9b\u4e2d\u6587\u6587\u6863\u652f\u6301\uff0c\u7528\u6765\u5e2e\u52a9\u56fd\u5185\u5f00\u53d1\u8005\u66f4\u65b9\u4fbf\u7684\u4f7f\u7528 Docker \u955c\u50cf\u3002",
-                        "categories": [
-                            {
-                                "id": "os",
-                                "name": "\u64cd\u4f5c\u7cfb\u7edf"
-                            }
-                        ],
-                        "created_at": null,
-                        "download_count": 2263,
-                        "icon_url": "https://dn-daoweb-resource.qbox.me/image-icon/ubuntu.svg",
-                        "id": "4983bbad-a6eb-46c6-abb3-f8e3ff35b2c8",
-                        "image_url": "daocloud.io/library/ubuntu",
-                        "latest_tag": {
-                            "blockchain_verified": false,
-                            "created_at": "2015-12-15T23:17:12+08:00",
-                            "daohub_build_id": null,
-                            "from_tag": null,
-                            "image_digest": "sha256:090075eeae7695de7120f5fc2444524ce455320f4848c1c35fcb14da90a512d0",
-                            "image_url": "daocloud.io/library/ubuntu:precise-20150228.11",
-                            "is_pinned": false,
-                            "name": "precise-20150228.11",
-                            "release_date": "2017-04-26T04:52:39+08:00",
-                            "repo_id": "4983bbad-a6eb-46c6-abb3-f8e3ff35b2c8",
-                            "scan_status": null,
-                            "scanned_at": null,
-                            "size": 0,
-                            "updated_at": "2017-04-26T04:52:41+08:00"
-                        },
-                        "publisher": {
-                            "full_name": "Docker Official",
-                            "id": "0a9af180-1b20-44a2-a51f-908a4312e028",
-                            "name": "library"
-                        },
-                        "repo_title": "Ubuntu",
-                        "security_verified": false,
-                        "star_count": 102,
-                        "updated_at": "2017-04-26T04:52:41+08:00"
-                    },
-                    {
-                        "access": 2,
-                        "blockchain_verified": false,
-                        "brief": "RabbitMQ \u662f\u5f00\u6e90\u7684\u6d88\u606f\u961f\u5217\u7cfb\u7edf\uff08\u6216\u79f0\u6d88\u606f\u4e2d\u95f4\u4ef6\uff09\uff0c\u5b83\u5b9e\u73b0\u4e86\u9ad8\u7ea7\u7684\u6d88\u606f\u961f\u5217\u534f\u8bae\uff08AMQR\uff09\u3002RabbitMQ \u670d\u52a1\u7aef\u662f\u7531 Erlang \u7f16\u5199\u7684\uff0c\u540c\u65f6\u4e5f\u662f\u57fa\u4e8e\u5f00\u653e\u7535\u4fe1\u5e73\u53f0\u6846\u67b6\uff08OTP\uff09\u5f00\u53d1\u7684\u3002\u5ba2\u6237\u7aef\u7684\u63a5\u53e3\u5219\u51e0\u4e4e\u517c\u5bb9\u6240\u6709\u7684\u4e3b\u6d41\u8bed\u8a00\u3002\u672c\u955c\u50cf\u4ece Docker Hub \u540c\u6b65\u5e76\u7531 DaoCloud \u63d0\u4f9b\u4e2d\u6587\u6587\u6863\u652f\u6301\uff0c\u7528\u6765\u5e2e\u52a9\u56fd\u5185\u5f00\u53d1\u8005\u66f4\u65b9\u4fbf\u7684\u4f7f\u7528 Docker \u955c\u50cf\u3002",
-                        "categories": [
-                            {
-                                "id": "message-queue",
-                                "name": "\u6d88\u606f\u961f\u5217"
-                            }
-                        ],
-                        "created_at": null,
-                        "download_count": 58165,
-                        "icon_url": "https://dn-daoweb-resource.qbox.me/image-icon/rabbitmq.svg",
-                        "id": "abd7d091-dc5e-4f20-8267-d17d845c1c36",
-                        "image_url": "daocloud.io/library/rabbitmq",
-                        "latest_tag": {
-                            "blockchain_verified": false,
-                            "created_at": "2015-12-15T23:18:13+08:00",
-                            "daohub_build_id": null,
-                            "from_tag": null,
-                            "image_digest": "sha256:c46d03ede8c74bc6d7bfa4d1e6404220de7d5ff4be5603af64073fdc77bfe745",
-                            "image_url": "daocloud.io/library/rabbitmq:3.4-management",
-                            "is_pinned": false,
-                            "name": "3.4-management",
-                            "release_date": "2017-04-25T07:13:55+08:00",
-                            "repo_id": "abd7d091-dc5e-4f20-8267-d17d845c1c36",
-                            "scan_status": null,
-                            "scanned_at": null,
-                            "size": 0,
-                            "updated_at": "2017-04-25T07:13:56+08:00"
-                        },
-                        "publisher": {
-                            "full_name": "Docker Official",
-                            "id": "0a9af180-1b20-44a2-a51f-908a4312e028",
-                            "name": "library"
-                        },
-                        "repo_title": "RabbitMQ",
-                        "security_verified": false,
-                        "star_count": 40,
-                        "updated_at": "2017-04-25T07:13:57+08:00"
-                    },
-                    {
-                        "access": 2,
-                        "blockchain_verified": false,
-                        "brief": "Docker Registry \u662f Docker \u7684\u955c\u50cf\u4ed3\u5e93\u9879\u76ee\uff0c\u901a\u8fc7\u672c\u9879\u76ee\u53ef\u4ee5\u90e8\u7f72\u79c1\u6709\u7684\u955c\u50cf\u4ed3\u5e93\uff0c\u7528\u4e8e\u955c\u50cf\u7684\u5b58\u50a8\u4e0e\u5206\u53d1\u3002\u672c\u955c\u50cf\u4ece Docker Hub \u540c\u6b65\u5e76\u7531 DaoCloud \u63d0\u4f9b\u4e2d\u6587\u6587\u6863\u652f\u6301\uff0c\u7528\u6765\u5e2e\u52a9\u56fd\u5185\u5f00\u53d1\u8005\u66f4\u65b9\u4fbf\u7684\u4f7f\u7528 Docker \u955c\u50cf\u3002",
-                        "categories": [
-                            {
-                                "id": "container-tools",
-                                "name": "\u5bb9\u5668\u5de5\u5177"
-                            }
-                        ],
-                        "created_at": null,
-                        "download_count": 825,
-                        "icon_url": "https://dn-daoweb-resource.qbox.me/image-icon/registry.svg",
-                        "id": "16a9324c-7e6e-4cbd-8479-da64962a6429",
-                        "image_url": "daocloud.io/library/registry",
-                        "latest_tag": {
-                            "blockchain_verified": false,
-                            "created_at": "2015-12-15T23:16:28+08:00",
-                            "daohub_build_id": null,
-                            "from_tag": null,
-                            "image_digest": "sha256:f23140553a1160f597393fd48d9a21584292cb9a624437e53a07309326203f97",
-                            "image_url": "daocloud.io/library/registry:0.6.4",
-                            "is_pinned": false,
-                            "name": "0.6.4",
-                            "release_date": "2017-04-25T07:09:25+08:00",
-                            "repo_id": "16a9324c-7e6e-4cbd-8479-da64962a6429",
-                            "scan_status": null,
-                            "scanned_at": null,
-                            "size": 0,
-                            "updated_at": "2017-04-25T07:09:26+08:00"
-                        },
-                        "publisher": {
-                            "full_name": "Docker Official",
-                            "id": "0a9af180-1b20-44a2-a51f-908a4312e028",
-                            "name": "library"
-                        },
-                        "repo_title": "Docker Registry",
-                        "security_verified": false,
-                        "star_count": 31,
-                        "updated_at": "2017-04-25T07:09:26+08:00"
-                    },
-                    {
-                        "access": 2,
-                        "blockchain_verified": false,
-                        "brief": "PostgreSQL \u662f\u4e00\u4e2a\u5f3a\u5927\u7684\u5bf9\u8c61\u5173\u7cfb\u578b\u6570\u636e\u5e93\u7ba1\u7406\u7cfb\u7edf\u3002\u672c\u955c\u50cf\u4ece Docker Hub \u540c\u6b65\u5e76\u7531 DaoCloud \u63d0\u4f9b\u4e2d\u6587\u6587\u6863\u652f\u6301\uff0c\u7528\u6765\u5e2e\u52a9\u56fd\u5185\u5f00\u53d1\u8005\u66f4\u65b9\u4fbf\u7684\u4f7f\u7528 Docker \u955c\u50cf\u3002",
-                        "categories": [
-                            {
-                                "id": "database",
-                                "name": "\u6570\u636e\u5e93"
-                            }
-                        ],
-                        "created_at": null,
-                        "download_count": 2240,
-                        "icon_url": "https://dn-daoweb-resource.qbox.me/image-icon/postgres.svg",
-                        "id": "117b2997-2c30-4182-926c-6f131d5bf260",
-                        "image_url": "daocloud.io/library/postgres",
-                        "latest_tag": {
-                            "blockchain_verified": false,
-                            "created_at": "2015-12-15T23:16:23+08:00",
-                            "daohub_build_id": null,
-                            "from_tag": null,
-                            "image_digest": "sha256:3ed98a21226283a700a268ae79bc88a3ef89ae99faedc284bae96419439be3cf",
-                            "image_url": "daocloud.io/library/postgres:9.4-beta3",
-                            "is_pinned": false,
-                            "name": "9.4-beta3",
-                            "release_date": "2017-04-25T06:56:08+08:00",
-                            "repo_id": "117b2997-2c30-4182-926c-6f131d5bf260",
-                            "scan_status": null,
-                            "scanned_at": null,
-                            "size": 0,
-                            "updated_at": "2017-04-25T06:56:09+08:00"
-                        },
-                        "publisher": {
-                            "full_name": "Docker Official",
-                            "id": "0a9af180-1b20-44a2-a51f-908a4312e028",
-                            "name": "library"
-                        },
-                        "repo_title": "PostgreSQL",
-                        "security_verified": false,
-                        "star_count": 29,
-                        "updated_at": "2017-04-25T06:56:09+08:00"
-                    },
-                    {
-                        "access": 2,
-                        "blockchain_verified": false,
-                        "brief": "Nginx\u6b64\u955c\u50cf\u4ece Docker Hub \u540c\u6b65\u5e76\u7531 DaoCloud \u63d0\u4f9b\u4e2d\u6587\u6587\u6863\u652f\u6301\uff0c\u7528\u6765\u5e2e\u52a9\u56fd\u5185\u5f00\u53d1\u8005\u66f4\u65b9\u4fbf\u7684\u4f7f\u7528 Docker \u955c\u50cf\u3002\u8be5\u955c\u50cf\u6e90\u7ef4\u62a4\u5728 Github\u3002\u4ec0\u4e48\u662f Nginx\uff1fNginx \u662f\u4e00\u6b3e\u8f7b\u91cf\u7ea7\u7684 Web \u670d\u52a1\u5668\u3001\u53cd\u5411\u4ee3\u7406\u670d\u52a1\u5668\u3001\u53ca\u7535\u5b50\u90ae\u4ef6\uff08IMAP/POP3\uff09\u4ee3\u7406\u670d\u52a1\u5668\uff0c\u5e76\u5728\u4e00",
-                        "categories": [
-                            {
-                                "id": "server",
-                                "name": "\u670d\u52a1\u5668"
-                            }
-                        ],
-                        "created_at": null,
-                        "download_count": 9921,
-                        "icon_url": "https://dn-daoweb-resource.qbox.me/image-icon/nginx.svg",
-                        "id": "2b7310fb-1a50-48f2-9586-44622a2d1771",
-                        "image_url": "daocloud.io/library/nginx",
-                        "latest_tag": {
-                            "blockchain_verified": false,
-                            "created_at": "2015-12-15T23:16:47+08:00",
-                            "daohub_build_id": null,
-                            "from_tag": null,
-                            "image_digest": "sha256:c64eaeb9097f34942c3382a1985af15fe09485eddd8773646b0c9cdbd8c4b8ae",
-                            "image_url": "daocloud.io/library/nginx:1.7.1",
-                            "is_pinned": false,
-                            "name": "1.7.1",
-                            "release_date": "2017-04-25T05:57:56+08:00",
-                            "repo_id": "2b7310fb-1a50-48f2-9586-44622a2d1771",
-                            "scan_status": null,
-                            "scanned_at": null,
-                            "size": 0,
-                            "updated_at": "2017-04-25T05:58:02+08:00"
-                        },
-                        "publisher": {
-                            "full_name": "Docker Official",
-                            "id": "0a9af180-1b20-44a2-a51f-908a4312e028",
-                            "name": "library"
-                        },
-                        "repo_title": "Nginx",
-                        "security_verified": false,
-                        "star_count": 180,
-                        "updated_at": "2017-04-25T05:58:02+08:00"
-                    }
-                ],
-                "total_count": 30,
-                "total_pages": 4
-            }
-            var str = ""
-            for(var a=0; a<daocloud.results.length; a++){
-                var dao = daocloud.results[a]
-                var content = dao.brief
-                if(dao.brief.length > 90){
-                    content = dao.brief.substring(0,90) + "..."
-                }
-                str += "<div class='col-md-3 card-box box'>" +
-                    "           <div style='display: flex' class='img-title'><img src='"+ dao.icon_url +"'>" +
-                    "               <div style='margin-left: 20px;'>" +
-                    "                  <a>"+dao.repo_title+"</a><p style='font-size: 14px;line-height: 1;margin: 0;color: #9ba3af;'>"+ dao.publisher.full_name+"</p>" +
-                    "               </div>" +
-                    "           </div>" +
-                    "           <p class='description' style='text-rendering: optimizeLegibility;'>"+ content +"</p>" +
-                    "           <div>" +
-                    "                   <button class='btn btn-primary waves-effect waves-light btn-xs create-new-application' data-animation='flash'  data-overlaySpeed='100' data-overlayColor='#36404a' style='float: right;margin-top: 42px;margin-right: 10px;'>click</button>" +
-//                    "                   <a href='#custom-modal' class='btn btn-primary waves-effect waves-light btn-xs' data-animation='flash' data-plugin='custommodal' data-overlaySpeed='100' data-overlayColor='#36404a' style='float: right;margin-top: 42px;margin-right: 10px;'>click</a>" +
-                    "           </div>" +
-                    "   </div>"
-            }
-
-            $("#tab0").html("<div>"+str+"</div>")
-            var h = $(".left.side-menu.main-sidebar").height()
-            console.log(">>>        ",$("body").height(),$("#wrapper").height(),$(".topbar").height(),$(".main-footer.footer.text-right").height())
-            $("#sideBar2").height(h)
-            $(".create-new-application").on("click",function (e) {
-                //$(this).on("click",function (e) {
-                    Custombox.open({
-                        target: "#custom-modal",
-                        effect: "flash",
-                        overlaySpeed: "100",
-                        overlayColor: "#36404a",
-                        overlayClose: false,
-                        eClose: "test"
-                    });
-                    e.preventDefault();
-                //})
-            })
-
-
-
-
+            getAPIdaocloud()
         })
         $(document).ready(function () {
             $("#cpu").ionRangeSlider({
-                type: "double",
+                type: "single",
                 grid: true,
                 min: 0,
                 max: 100,
-                from: 0,
-                to: 30,
                 postfix: "%"
             });
             $("#memory").ionRangeSlider({
-                type: "double",
+                type: "single",
                 grid: true,
                 min: 2,
                 max: 8,
-                from: 2,
-                to: 2,
                 postfix: "GB"
             });
             $("#instanceCnt").ionRangeSlider({
-                type: "double",
+                type: "single",
                 grid: true,
                 min: 1,
-                max: 10,
-                from: 0,
-                to: 1
+                max: 10
             });
-
         })
 
+        function SaveCreateApplication() {
+            var data = serializeArrayToJSON($("#resForm").serializeArray())
+            console.log(data)
+            Custombox.close()
+        }
+        function createApp() {
+            var appName = $('#appname').val()
+            var image = $('#image').val() + ":" + $('#version').val()
+            var cpu = $('#cpu').val()
+            var memory = $('#memory').val()
+            var instanceCnt = $('#instanceCnt').val()
+            var remark = $('#remark').val()
+            console.log(JSON.stringify({
+                "name": appName,
+                "region": "IPGO",
+                "memory": memory,
+                "cpu": cpu,
+                "instanceCount": Number(instanceCnt),
+                "image": image,
+                "userName": "oliver",
+                "remark": "this is a test web application"
+            }))
+            $.ajax({
+                type: 'POST',
+                url: "http://10.5.9.47:9090/api/v1/apps",
+                dataType: 'JSON',
+                contentType: "application/json",
+                data: JSON.stringify({
+                    "name": appName,
+                    "region": "IPGO",
+                    "memory": memory,
+                    "cpu": cpu,
+                    "instanceCount": Number(instanceCnt),
+                    "image": image,
+                    "userName": "oliver",
+                    "remark": "this is a test web application"
+                }),
+                success: function(data, status) {
+                    console.log(data);
+                    $("#cpu").data("ionRangeSlider").reset()
+                    $("#memory").data("ionRangeSlider").reset()
+                    $("#instanceCnt").data("ionRangeSlider").reset()
+                    Custombox.close()
+                    //$('#addapp').modal('hide');
+
+                },
+                error: function(XHR, status, errorThrown) {
+                    console.log(XHR);
+                    console.log(status);
+                    console.log(errorThrown);
+                }
+            });
+
+        }
+        
+        
+        function getAPIdaocloud() {
+            $.ajax({
+                type: 'GET',
+                url: "https://api.daocloud.io/hub/v2/store/repos?ordering="+$("#ordering").val()+"&page=1&page_size=9&q=&random=false",
+                success: function(daocloud, status) {
+                    var str = ""
+                    for(var a=0; a<daocloud.results.length; a++){
+                        var dao = daocloud.results[a]
+                        var content = dao.brief
+                        if(dao.brief.length > 90){
+                            content = dao.brief.substring(0,90) + "..."
+                        }
+                        var publisher_full_name = ""
+                        if(dao.publisher){
+                            var publisher_full_name = dao.publisher.full_name
+                        }
+                        str += "<div class='col-md-3 card-box box'>" +
+                            "           <div style='display: flex' class='img-title'><img src='"+ dao.icon_url +"'>" +
+                            "               <div style='margin-left: 20px;'>" +
+//                            "                  <a>"+dao.repo_title+"</a><p style='font-size: 14px;line-height: 1;margin: 0;color: #9ba3af;'>"+ dao.publisher.full_name+"</p>" +
+                            "                  <a>"+dao.repo_title+"</a><p style='font-size: 14px;line-height: 1;margin: 0;color: #9ba3af;'>"+ publisher_full_name +"</p>" +
+                            "               </div>" +
+                            "           </div>" +
+                            "           <p class='description' style='text-rendering: optimizeLegibility;'>"+ content +"</p>" +
+                            "           <div>" +
+                            "                   <button class='btn btn-primary waves-effect waves-light btn-xs create-new-application' data-animation='flash'  data-overlaySpeed='100' data-overlayColor='#36404a' style='float: right;margin-top: 42px;margin-right: 10px;'>click</button>" +
+//                    "                   <a href='#custom-modal' class='btn btn-primary waves-effect waves-light btn-xs' data-animation='flash' data-plugin='custommodal' data-overlaySpeed='100' data-overlayColor='#36404a' style='float: right;margin-top: 42px;margin-right: 10px;'>click</a>" +
+                            "           </div>" +
+                            "   </div>"
+                    }
+
+                    $("#tab0 .cloudbox").html("<div style='margin-top: 10px'>"+str+"</div>")
+                    var h = $(".left.side-menu.main-sidebar").height()
+                    console.log(">>>        ",$("body").height(),$("#wrapper").height(),$(".topbar").height(),$(".main-footer.footer.text-right").height())
+                    $("#sideBar2").height(h)
+                    $(".create-new-application").each(function () {
+                        $(this).on("click",function (e) {
+                            $('#appname').val('')
+                            $('#image').val('')
+                            $('#version').val('')
+                            $('#remark').val('')
+                            Custombox.open({
+                                target: "#custom-modal",
+                                effect: "fadein",
+                                overlaySpeed: "100",
+                                overlayColor: "#36404a",
+                                overlayClose: false
+                            });
+                            e.preventDefault();
+                        })
+                    })
+                },
+                error: function(XHR, status, errorThrown) {
+                    console.log(XHR);
+                    console.log(status);
+                    console.log(errorThrown);
+                }
+            });
+        }
 
     </script>
 

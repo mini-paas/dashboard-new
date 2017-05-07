@@ -60,7 +60,7 @@
         <script>
             var resizefunc = [];
         </script>
-        <script language="JavaScript" src="/static/js/modernizr.min.js"></script>
+
 
         <!-- jQuery  -->
         <script language="JavaScript" src="/static/js/jquery.min.js"></script>
@@ -91,19 +91,20 @@
 
         <script language="JavaScript" src="/static/js/jquery.core.js"></script>
         <script language="JavaScript" src="/static/js/jquery.app.js"></script>
+
         <!--<script language="JavaScript" src="/static/js/dogo.js"></script>-->
 
         <!-- Modal-Effect -->
-        <script src="/static/plugins/custombox/dist/custombox.min.js"></script>
-        <script src="/static/plugins/custombox/dist/legacy.min.js"></script>
+        <!--<script src="/static/plugins/custombox/dist/custombox.min.js"></script>-->
+        <script language="JavaScript" src="/static/plugins/custombox/src/js/custombox.js"></script>
+        <script language="JavaScript" src="/static/plugins/custombox/dist/legacy.min.js"></script>
 
         <!-- AdminLTE App -->
-        <script language="JavaScript" src="/static/js/app.js"></script>
-        <script language="JavaScript" src="/static/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+        <!--<script language="JavaScript" src="/static/js/app.js"></script>-->
+        <!--<script language="JavaScript" src="/static/plugins/slimScroll/jquery.slimscroll.min.js"></script>-->
 
         <script type="text/javascript" src="../static/plugins/datatables/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="../static/plugins/datatables/dataTables.bootstrap.min.js"></script>
-
 
 
         <!-- Optionally, you can add Slimscroll and FastClick plugins.
@@ -116,9 +117,8 @@
 
         <!-- customize functions-->
         <script language="JavaScript" src="/static/js/custom.js"></script>
+        <script language="JavaScript" src="/static/js/modernizr.min.js"></script>
 
-
-        <script language="JavaScript" src="/static/js/waves.js"></script>
         {{ block "js" . }}{{ end }}
         {{ block "script" . }}{{ end }}
     </body>
